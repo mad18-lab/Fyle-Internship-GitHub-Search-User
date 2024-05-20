@@ -8,13 +8,15 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 import { ProfileReposComponent } from './components/profile-repos/profile-repos.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SkeletonLoaderComponent } from './components/skeleton-loader/skeleton-loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProfileComponent,
     ProfileCardComponent,
-    ProfileReposComponent
+    ProfileReposComponent,
+    SkeletonLoaderComponent
   ],
   imports: [
     BrowserModule,

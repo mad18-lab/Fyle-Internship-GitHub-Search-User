@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, retry, tap, throwError } from 'rxjs';
+import { Observable, catchError, retry, tap, throwError, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +20,26 @@ export class ApiService {
   }
 
   //for displaying GitHub repo details
-  getRepos(githubUsername: string, page: number, per_page: number):Observable<any[]> {
-    let dataURL = `https://api.github.com/users/${githubUsername}/repos`;
+  getRepos(githubUsername: string, page: number, per_page: number):Observable<{ repos: any[], totalCount: number }> {
+    let dataURL = `https://api.github.com/users/${githubUsername}/repos?page=${page}&per_page=${per_page}`;
     return this.httpClient.get<any[]>(dataURL, {
+      observe: 'response', // This will allow you to access the full HTTP response
       params: {
         page: page.toString(),
         per_page: per_page.toString()
       }
     }).pipe(
+      map((response: HttpResponse<any[]>) => {
+        const totalCountHeader = response.headers.get('Link');
+        let totalCount = 0;
+        if (totalCountHeader) {
+          const match = totalCountHeader.match(/page=(\d+)>; rel="last"/);
+          if (match) {
+            totalCount = parseInt(match[1], 10) * per_page;
+          }
+        }
+        return { repos: response.body as any[], totalCount: totalCount };
+      }),
       catchError(this.handleErrors)
     );
   }

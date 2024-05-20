@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
   public page:number=1;
   public perPage:number=10;
   public totalRepos:number=0;
+  public isLastPage: boolean = false;
+  public loading: boolean = false;
   
   constructor(
     private apiService: ApiService
@@ -26,21 +28,30 @@ export class AppComponent implements OnInit {
       this.profile = data;
       this.page = 1;
       this.displayRepos();
+      this.loading = false;
     }, error: (error) => {
       this.errorMessage = error;
+      this.loading = false;
     }});
   }
 
   public displayRepos() {
-    this.apiService.getRepos(this.searchUser, this.page, this.perPage).subscribe({next: (data) => {
-      this.repos = data;
-      this.totalRepos = data.length;
-    }, error: (error) => {
+    this.loading = true;
+    this.apiService.getRepos(this.searchUser, this.page, this.perPage).subscribe({
+      next: (data) => {
+        this.repos = data.repos; // Update to access the 'repos' property of the returned object
+        console.log(this.repos.length);
+        this.totalRepos = data.totalCount; // Update to access the 'totalCount' property of the returned object
+        this.isLastPage = this.page * this.perPage >= this.totalRepos;
+        this.loading = false;
+      }, error: (error) => {
       this.errorMessage = error;
+      this.loading = false;
     }});
   }
 
   public onPageChange(newPage: number) {
+    if (newPage < 1) return;
     this.page = newPage;
     this.displayRepos();
   }

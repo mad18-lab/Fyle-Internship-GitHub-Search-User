@@ -1,12 +1,28 @@
-<div *ngIf="repos && repos.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div *ngFor="let repo of repos" class="p-4 border rounded">
-        <a [href]="repo.html_url" target="_blank" class="text-xl font-bold text-blue-600">{{repo.name}}</a>
-        <p *ngIf="repo.description">{{repo.description}}</p>
-        <div class="mt-2 space-x-2">
-            <span *ngIf="repo.language" class="bg-blue-200 text-blue-800 px-2 py-1 rounded">{{repo.language}}</span>
-        </div>
+<div
+  *ngIf="repos && repos.length > 0"
+  class="grid grid-cols-1 md:grid-cols-2 gap-4"
+>
+  <div
+    *ngFor="let repo of repos"
+    style="width: 30vw"
+    class="p-4 mx-8 my-5 border-2 border-gray-500 rounded-sm "
+  >
+    <a
+      [href]="repo.html_url"
+      target="_blank"
+      class="text-xl font-bold text-blue-600"
+      >{{ repo.name }}</a
+    >
+    <p *ngIf="repo.description">{{ repo.description }}</p>
+    <div class="mt-2 space-x-2">
+      <span
+        *ngIf="repo.language"
+        class="bg-blue-500 text-white px-2 py-1 rounded"
+        >{{ repo.language }}</span
+      >
     </div>
+  </div>
 </div>
 <div *ngIf="repos && repos.length === 0" class="text-center text-gray-500">
-    No repositories found.
+  No repositories found.
 </div>
