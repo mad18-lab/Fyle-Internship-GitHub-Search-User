@@ -1,5 +1,13 @@
 # Fyle Frontend Challenge
 
+## How to run tests?
+
+Open the terminal of the project and run the command "npm run ng test --include=src/app/app.component.spec.ts,src/app/services/api.service.spec.ts" to run the unit tests for the Main App component and the API Service.
+
+## Accessing the app
+
+You can access the app through the Vercel link in the repository bio or you can follow the installation guide given below.
+
 ## Who is this for?
 
 This challenge is meant for candidates who wish to intern at Fyle and work with our engineering team. The candidate should be able to commit to at least 6 months of dedicated time for internship.
@@ -35,7 +43,7 @@ You will hear back within 48 hours from us via email.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `npm run ng serve` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
 ## Further help
 
