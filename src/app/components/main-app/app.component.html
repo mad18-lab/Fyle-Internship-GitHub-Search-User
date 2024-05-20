@@ -1,3 +1,7 @@
+<div>
+  <h4 class="mb-1 pt-4 text-center text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-xl lg:text-3xl dark:text-white">Fyle Front-End Internship Assignment: GitHub User Search</h4>
+</div>
+
 <form (submit)="getProfile()" class="max-w-md mx-auto pt-9">
   <label
     for="default-search"
@@ -53,7 +57,7 @@
     </div>
 
     <!-- Repos per page selection -->
-    <div class="flex justify-between items-center mb-4" style="justify-content: center;">
+    <div *ngIf="repos && repos.length > 0" class="flex justify-between items-center mb-4" style="justify-content: center;">
       <label for="reposPerPage" class="mr-2">Repositories per page:</label>
       <select
         id="reposPerPage"
@@ -67,11 +71,12 @@
       </select>
     </div>
 
-    <div class="flex flex-wrap justify-evenly text-sm my-4">
+    <div *ngIf="repos && repos.length > 0" class="flex flex-wrap justify-evenly text-sm my-4">
       <app-profile-repos [repos]="repos"></app-profile-repos>
     </div>
+
     <!-- Pagination controls -->
-    <div class="flex justify-evenly items-center">
+    <div *ngIf="repos && repos.length > 0" class="flex justify-evenly items-center">
       <button
         (click)="onPageChange(page - 1)"
         [disabled]="page === 1"
