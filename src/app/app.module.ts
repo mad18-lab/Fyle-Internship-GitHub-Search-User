@@ -7,6 +7,7 @@ import { AppComponent } from './components/main-app/app.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 import { ProfileReposComponent } from './components/profile-repos/profile-repos.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ProfileReposComponent } from './components/profile-repos/profile-repos.
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

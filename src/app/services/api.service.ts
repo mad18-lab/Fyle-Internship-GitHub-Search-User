@@ -20,9 +20,14 @@ export class ApiService {
   }
 
   //for displaying GitHub repo details
-  getRepos(githubUsername: string):Observable<any[]> {
+  getRepos(githubUsername: string, page: number, per_page: number):Observable<any[]> {
     let dataURL = `https://api.github.com/users/${githubUsername}/repos`;
-    return this.httpClient.get<any[]>(dataURL).pipe(
+    return this.httpClient.get<any[]>(dataURL, {
+      params: {
+        page: page.toString(),
+        per_page: per_page.toString()
+      }
+    }).pipe(
       catchError(this.handleErrors)
     );
   }

@@ -20,6 +20,21 @@
     <div class="flex flex-row items-center mb-4">
       <app-profile [profile]="profile"></app-profile>
     </div>
+
+    <!-- Repos per page selection -->
+    <div class="flex justify-between items-center mb-4">
+      <label for="reposPerPage" class="mr-2">Repos per page:</label>
+      <select id="reposPerPage" [(ngModel)]="perPage" (change)="onPerPageChange(perPage)" class="border rounded px-2 py-1">
+        <option *ngFor="let size of [5, 10, 15, 20]" [value]="size">{{ size }}</option>
+      </select>
+    </div>
+    <!-- Pagination controls -->
+    <div class="flex justify-center items-center">
+      <button (click)="onPageChange(page - 1)" [disabled]="page === 1" class="mr-2 bg-gray-300 text-gray-700 px-4 py-2 rounded">Previous</button>
+      <span>Page {{ page }}</span>
+      <button (click)="onPageChange(page + 1)" class="ml-2 bg-gray-300 text-gray-700 px-4 py-2 rounded">Next</button>
+    </div>
+    
     <div class="flex flex-wrap justify-between text-sm mb-4">
       <app-profile-repos [repos]="repos"></app-profile-repos>
     </div>
