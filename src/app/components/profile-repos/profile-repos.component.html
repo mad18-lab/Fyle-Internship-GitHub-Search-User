@@ -1,0 +1,12 @@
+<div *ngIf="repos" class="mr-4">
+    <div>
+        <h3 class="font-bold text-gray-700 dark:text-gray-200">Your GitHub Repositories</h3>
+    </div>
+    <div class="card-body">
+        <ul class="list-disc">
+            <li *ngFor="let repo of repos" class="list-item">
+                <a href="/" target="_blank">{{repo.name}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

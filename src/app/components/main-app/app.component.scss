@@ -1,0 +1,15 @@
+#main {
+    position: relative;
+}
+
+#main::before {
+    content: '';
+    background-image: url("../../../assets/images/bg_github.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 12%;
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    pointer-events: none;
+}

@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap, throwError } from 'rxjs';
+import { Observable, catchError, retry, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +11,32 @@ export class ApiService {
     private httpClient: HttpClient
   ) { }
 
-  getUser(githubUsername: string) {
-    return this.httpClient.get(`https://api.github.com/users/${githubUsername}`);
+  //for displaying GitHub profile details
+  getUser(githubUsername: string):Observable<any> {
+    let dataURL = `https://api.github.com/users/${githubUsername}`;
+    return this.httpClient.get<any>(dataURL).pipe(
+      catchError(this.handleErrors)
+    );
   }
 
-  // implement getRepos method by referring to the documentation. Add proper types for the return type and params 
+  //for displaying GitHub repo details
+  getRepos(githubUsername: string):Observable<any[]> {
+    let dataURL = `https://api.github.com/users/${githubUsername}/repos`;
+    return this.httpClient.get<any[]>(dataURL).pipe(
+      catchError(this.handleErrors)
+    );
+  }
+
+
+  handleErrors(error: HttpErrorResponse) {
+    let errorMessage:String;
+    if (error.error instanceof ErrorEvent) {
+      //error is client side
+      errorMessage = `MESSAGE: ${error.error.message}`;
+    } else {
+      //error is server side
+      errorMessage = `STATUS: ${error.status} MESSAGE: ${error.message}`;
+    }
+    return throwError(() => errorMessage);
+  }
 }
